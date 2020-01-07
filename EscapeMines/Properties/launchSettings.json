@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "EscapeMines": {
+      "commandName": "Project",
+      "commandLineArgs": "$(SolutionDir)testFiles\\mineEscapeTest.txt"
+    }
+  }
+}
