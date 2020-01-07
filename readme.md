@@ -1,3 +1,8 @@
+# Requirements
+- Visual Studio 2019
+- .NET Core 2.2
+
+
 # Escape Mines
 
 A turtle must walk through a minefield. Write a program (console application) that will
@@ -37,7 +42,7 @@ Exit point: x=2, y=4
 ## Example:
 
 ## 5 4
-## 1,1 1,3 3,
+## 1,1 3,1 3,3
 ## 4 2
 ## 0 1 N
 ## R M L M M
