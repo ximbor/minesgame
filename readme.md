@@ -21,11 +21,9 @@ point or doesn’t hit a mine.
 - The exit point is a tile (x, y)
 - The mines are defined as a list of tiles (x, y)
 
-Example 5 X 4 board:
-
-Starting position: x=1, y=0 dir=N
-
-Exit point: x=2, y=4
+**Example 5 X 4 board:**
+ - Starting position: x=1, y=0 dir=N
+ - Exit point: x=2, y=4
 
 
 ## Inputs
@@ -41,12 +39,12 @@ Exit point: x=2, y=4
 
 ## Example:
 
-## 5 4
-## 1,1 3,1 3,3
-## 4 2
-## 0 1 N
-## R M L M M
-## R M M M
+> **5 4**
+> **1,1 3,1 3,3**
+> **4 2**
+> **0 1 N**
+> **R M L M M**
+> **R M M M**
 
 ## Where
 
