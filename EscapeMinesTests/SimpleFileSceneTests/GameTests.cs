@@ -39,7 +39,11 @@ namespace EscapeMinesTests.SimpleFileSceneTests
             {
                 mockReader.StartingPostionStr = $"{y} 0 S";
                 mockReader.ExitPointStr = $"{y} 3";
-                Assert.AreEqual(SimpleFileSceneBuilder.Build(mockReader).Play().Status, EscapeMines.Models.SafetyState.Success);
+
+                foreach( var match in SimpleFileSceneBuilder.Build(mockReader).Play())
+                {
+                    Assert.AreEqual(match.Status, EscapeMines.Models.SafetyState.Success);
+                }
             }
 
         }
@@ -61,7 +65,10 @@ namespace EscapeMinesTests.SimpleFileSceneTests
                 mockReader.StartingPostionStr = $"0 {x} S";
                 mockReader.ExitPointStr = $"5 {x}";
 
-                Assert.AreEqual(SimpleFileSceneBuilder.Build(mockReader).Play().Status, EscapeMines.Models.SafetyState.Success);
+                foreach (var match in SimpleFileSceneBuilder.Build(mockReader).Play())
+                {
+                    Assert.AreEqual(match.Status, EscapeMines.Models.SafetyState.Success);
+                }
             }
 
         }
@@ -73,7 +80,11 @@ namespace EscapeMinesTests.SimpleFileSceneTests
 
             // Successful path:
             mockReader.MovesStr = "R R M M L M R M M M L M M L M R M M M R M";
-            Assert.AreEqual(SimpleFileSceneBuilder.Build(mockReader).Play().Status, EscapeMines.Models.SafetyState.Success);
+
+            foreach (var match in SimpleFileSceneBuilder.Build(mockReader).Play())
+            {
+                Assert.AreEqual(match.Status, EscapeMines.Models.SafetyState.Success);
+            }
         }
 
         [TestMethod]
@@ -82,10 +93,14 @@ namespace EscapeMinesTests.SimpleFileSceneTests
             // Finds a mine in (0, 3):
             var mockReader = GetGameMock();
             mockReader.MovesStr = "R R M M M";
-            var game = SimpleFileSceneBuilder.Build(mockReader).Play();
-            Assert.AreEqual(game.Status, EscapeMines.Models.SafetyState.MineHit);
-            Assert.AreEqual(game.Location.X, 3);
-            Assert.AreEqual(game.Location.Y, 0);
+
+            foreach (var match in SimpleFileSceneBuilder.Build(mockReader).Play())
+            {
+                Assert.AreEqual(match.Status, EscapeMines.Models.SafetyState.MineHit);
+                Assert.AreEqual(match.Location.X, 3);
+                Assert.AreEqual(match.Location.Y, 0);
+            }
+
         }
 
 
@@ -95,10 +110,13 @@ namespace EscapeMinesTests.SimpleFileSceneTests
             // Finds a mine in (1,0):
             var mockReader = GetGameMock();
             mockReader.MovesStr = "R M";
-            var game = SimpleFileSceneBuilder.Build(mockReader).Play();
-            Assert.AreEqual(game.Status, EscapeMines.Models.SafetyState.MineHit);
-            Assert.AreEqual(game.Location.X, 0);
-            Assert.AreEqual(game.Location.Y, 1);
+
+            foreach (var match in SimpleFileSceneBuilder.Build(mockReader).Play())
+            {
+                Assert.AreEqual(match.Status, EscapeMines.Models.SafetyState.MineHit);
+                Assert.AreEqual(match.Location.X, 0);
+                Assert.AreEqual(match.Location.Y, 1);
+            }
 
         }
 
@@ -108,11 +126,13 @@ namespace EscapeMinesTests.SimpleFileSceneTests
             // Finds a mine in (1,1):
             var mockReader = GetGameMock();
             mockReader.MovesStr = "R R M L M";
-            var game = SimpleFileSceneBuilder.Build(mockReader).Play();
-            Assert.AreEqual(game.Status, EscapeMines.Models.SafetyState.MineHit);
-            Assert.AreEqual(game.Location.X, 1);
-            Assert.AreEqual(game.Location.Y, 1);
 
+            foreach (var match in SimpleFileSceneBuilder.Build(mockReader).Play())
+            {
+                Assert.AreEqual(match.Status, EscapeMines.Models.SafetyState.MineHit);
+                Assert.AreEqual(match.Location.X, 1);
+                Assert.AreEqual(match.Location.Y, 1);
+            }
         }
 
 
@@ -122,10 +142,13 @@ namespace EscapeMinesTests.SimpleFileSceneTests
             // Finds a mine in (0,5):
             var mockReader = GetGameMock();
             mockReader.MovesStr = "R R M M L M R M M R M L M";
-            var game = SimpleFileSceneBuilder.Build(mockReader).Play();
-            Assert.AreEqual(game.Status, EscapeMines.Models.SafetyState.MineHit);
-            Assert.AreEqual(game.Location.X, 5);
-            Assert.AreEqual(game.Location.Y, 0);
+
+            foreach (var match in SimpleFileSceneBuilder.Build(mockReader).Play())
+            {
+                Assert.AreEqual(match.Status, EscapeMines.Models.SafetyState.MineHit);
+                Assert.AreEqual(match.Location.X, 5);
+                Assert.AreEqual(match.Location.Y, 0);
+            }
 
         }
 
@@ -135,11 +158,13 @@ namespace EscapeMinesTests.SimpleFileSceneTests
             // Finds a mine in (4,1):
             var mockReader = GetGameMock();
             mockReader.MovesStr = "R R M M L M R M M M L M M L M M M M R M";
-            var game = SimpleFileSceneBuilder.Build(mockReader).Play();
-            Assert.AreEqual(game.Status, EscapeMines.Models.SafetyState.MineHit);
-            Assert.AreEqual(game.Location.X, 1);
-            Assert.AreEqual(game.Location.Y, 4);
 
+            foreach (var match in SimpleFileSceneBuilder.Build(mockReader).Play())
+            {
+                Assert.AreEqual(match.Status, EscapeMines.Models.SafetyState.MineHit);
+                Assert.AreEqual(match.Location.X, 1);
+                Assert.AreEqual(match.Location.Y, 4);
+            }
         }
 
 

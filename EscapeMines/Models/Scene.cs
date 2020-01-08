@@ -10,11 +10,12 @@ namespace EscapeMines
     {
         public Board MineField { get; set; } = new Board();
 
-        public List<MoveType> Moves { get; set; } = new List<MoveType>();
+        // public List<MoveType> Moves { get; set; } = new List<MoveType>();
+        public Dictionary<int, List<MoveType>> MovesSeries = new Dictionary<int, List<MoveType>>();
 
         public PlayerState PlayerState { get; set; } = new PlayerState();
 
-        public PlayerState Play()
+        public IEnumerable<PlayerState> Play()
         {
             // Startup conditions:
             var currentTile = GetPlayerTile(this.PlayerState);
@@ -26,7 +27,11 @@ namespace EscapeMines
                 this.PlayerState.Status = SafetyState.MineHit;
 
             // Start playing:
-            return this.Moves.Aggregate(this.PlayerState, GameReducer);
+            // return this.Moves.Aggregate(this.PlayerState, GameReducer);
+            foreach (var item in this.MovesSeries)
+            {
+                yield return item.Value.Aggregate(this.PlayerState, GameReducer);
+            }
         }
 
         public PlayerState GameReducer(PlayerState state, MoveType next)
@@ -61,7 +66,6 @@ namespace EscapeMines
 
             return newState;
         }
-
 
         private Tile GetPlayerTile(PlayerState state)
         {

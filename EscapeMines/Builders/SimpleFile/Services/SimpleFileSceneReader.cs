@@ -45,18 +45,16 @@ namespace EscapeMines
                     throw new ApplicationException("Missing data in game file: turtle start point and moves.");
                 }
 
-                // Allow to insert empty moves:
-                //if (length == 4)
-                //{
-                //    throw new ApplicationException("Game file did not specify any moves.");
-                //}
-
                 // Lines spaces correction:
-                lines =  lines.Take(4)
-                            .Union(new List<string>() { string.Join("", lines.Skip(4).ToArray()) })
-                            .Where(line => !string.IsNullOrWhiteSpace(line))
+                lines = lines.Where(line => !string.IsNullOrWhiteSpace(line))
                             .Select(line => System.Text.RegularExpressions.Regex.Replace(line.Trim(), @"\s+", " "))
                             .ToArray();
+
+                //lines =  lines.Take(4)
+                //            .Union(new List<string>() { string.Join("", lines.Skip(4).ToArray()) })
+                //            .Where(line => !string.IsNullOrWhiteSpace(line))
+                //            .Select(line => System.Text.RegularExpressions.Regex.Replace(line.Trim(), @"\s+", " "))
+                //            .ToArray();
 
                 return lines;
             }

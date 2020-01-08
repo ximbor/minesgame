@@ -238,20 +238,28 @@ namespace EscapeMines
             // Add moves only in case they have been specified (it's optional by design):
             if(_sourceLines.Length > MOVES_LINE && ! string.IsNullOrWhiteSpace(_sourceLines[MOVES_LINE]))
             {
-                string line = _sourceLines[MOVES_LINE];
-                string errorMessage = $"Invalid moves data (line {MOVES_LINE}): {line}";
+                var moveLines = _sourceLines.Skip(MOVES_LINE);
+                int index = 0;
+                moveLines.ToList().ForEach(line => {
+                    var moves = new List<MoveType>();
+                    string errorMessage = $"Invalid moves data (line {MOVES_LINE}): {line}";
+                    line.Split(' ').ToList().ForEach(item => {
+                        try
+                        {
+                            var move = (MoveType)Enum.Parse(typeof(MoveType), item);
+                            //this._scene.Moves.Add(move);
+                            moves.Add(move);
+                        }
+                        catch (Exception)
+                        {
+                            throw new ApplicationException(errorMessage);
+                        }
+                    });
 
-                line.Split(' ').ToList().ForEach(item => {
-                    try
-                    {
-                        var move = (MoveType)Enum.Parse(typeof(MoveType), item);
-                        this._scene.Moves.Add(move);
-                    }
-                    catch (Exception)
-                    {
-                        throw new ApplicationException(errorMessage);
-                    }
+                    this._scene.MovesSeries.Add(index, moves);
+                    index++;
                 });
+
             }
 
         }

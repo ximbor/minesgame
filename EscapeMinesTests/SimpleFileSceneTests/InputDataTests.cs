@@ -105,7 +105,7 @@ namespace EscapeMinesTests
 
             mockReader.MovesStr = String.Empty;
             var result = SimpleFileSceneBuilder.Build(mockReader);
-            Assert.IsTrue( result.Moves.Count==0 );
+            Assert.IsTrue( result.MovesSeries.Count==0 );
         }
 
         [TestMethod]

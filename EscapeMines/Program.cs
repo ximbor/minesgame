@@ -17,8 +17,12 @@ namespace EscapeMines
                 string testFile = args[0];
                 var fileReaderService = new SimpleFileSceneReader(testFile);
                 var scene = SimpleFileSceneBuilder.Build(fileReaderService);
-                var result = scene.Play();
-                Console.WriteLine(result.Status);
+
+                foreach (var match in scene.Play())
+                {
+                    Console.WriteLine(match.Status);
+
+                }
                 return 0;
                 
             } catch (Exception exc)
